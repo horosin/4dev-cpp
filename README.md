@@ -1,25 +1,23 @@
-# Python C++ extension starter
+# C++ modules in Python
 
-Simplified version for teaching purposes. For a full-fledged, production ready template, see:
-[official example](https://github.com/pybind/python_example).
+Resources for the talk.
 
+## Presentation
+Here: [4dev-pycpp-presentation.pdf](presentation/4dev-pycpp-presentation.pdf)
 
-## Installation
+## Installation of the cpp package
 
-### On Unix (Linux, OS X)
+```sh
+pip install .
+```
 
- - clone this repository
- - `pip install ./python_example`
-
-### On Windows (Requires Visual Studio 2015)
-
- - For Python 3.5:
-     - clone this repository
-     - `pip install ./python_example`
-
-### Test call
+## Test call
 
 ```python
-import python_example
-python_example.add(1, 2)
+import python_example as pe
+import numpy as np
+pe.stdev(np.array([1, 2, 3]))
 ```
+
+## In notebook usage
+[Notebook](python_cpp.ipynb)

@@ -1,35 +1,26 @@
 #include <pybind11/pybind11.h>
-
-int add(int i, int j) {
-    return i + j;
-}
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
+#include <vector>
 
 namespace py = pybind11;
 
+double stdev(const std::vector<double>& v) {
+    
+    double sum = std::accumulate(v.begin(), v.end(), 0.0);
+    double mean = sum / v.size();
+
+    double squareSum = std::inner_product(v.begin(), v.end(), v.begin(), 0.0);
+    return sqrt(squareSum / v.size() - mean * mean);
+}
+
 PYBIND11_MODULE(python_example, m) {
     m.doc() = R"pbdoc(
-        Pybind11 example plugin
-        -----------------------
-
-        .. currentmodule:: python_example
-
-        .. autosummary::
-           :toctree: _generate
-
-           add
-           subtract
+        Extension example
     )pbdoc";
 
-    m.def("add", &add, R"pbdoc(
-        Add two numbers
-
-        Some other explanation about the add function.
-    )pbdoc");
-
-    m.def("subtract", [](int i, int j) { return i - j; }, R"pbdoc(
-        Subtract two numbers
-
-        Some other explanation about the subtract function.
+    m.def("stdev", &stdev, R"pbdoc(
+        Calculate standard deviation.
     )pbdoc");
 
 #ifdef VERSION_INFO
